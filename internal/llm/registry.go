@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/paupm/slack-mcp-client/v2/internal/common/logging"
+	"github.com/paupm/slack-mcp-client/v2/internal/config" // Import config
 	"github.com/tmc/langchaingo/callbacks"
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/tools"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/common/logging"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/config" // Import config
 )
 
 // ProviderRegistry manages all available LLM providers

@@ -15,6 +15,7 @@ Configuration files use **camelCase** naming for JSON fields (e.g., `botToken`, 
 ## Configuration Architecture
 
 ### Philosophy: Single File, Logical Sections
+
 **Reject complexity. Embrace simplicity.**
 
 Instead of multiple configuration files that create cognitive overhead, use a **single, well-structured configuration file** with logical sections.
@@ -39,7 +40,7 @@ custom-prompt.txt               # Optional custom prompt file
 
 The configuration includes comprehensive JSON schema support for enhanced developer experience:
 
-- **Schema Reference**: Include `"$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json"` for IDE support
+- **Schema Reference**: Include `"$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json"` for IDE support
 - **Autocomplete**: IDEs provide intelligent autocomplete for configuration fields
 - **Validation**: Real-time validation of field types, required fields, and value constraints
 - **Documentation**: Inline field descriptions and examples
@@ -50,99 +51,101 @@ Below is the complete configuration schema showing all available options. Fields
 
 ```json
 {
-  "$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
-  "version": "2.0",                                    // ⭐ Required
+  "$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
+  "version": "2.0", // ⭐ Required
   "slack": {
-    "botToken": "${SLACK_BOT_TOKEN}",                 // ⭐ Required
-    "appToken": "${SLACK_APP_TOKEN}",                 // ⭐ Required
-    "messageHistory": 50,                             // ⚙️ Default: 50 messages per channel
-    "thinkingMessage": "Thinking..."                  // ⚙️ Default: "Thinking..."
+    "botToken": "${SLACK_BOT_TOKEN}", // ⭐ Required
+    "appToken": "${SLACK_APP_TOKEN}", // ⭐ Required
+    "messageHistory": 50, // ⚙️ Default: 50 messages per channel
+    "thinkingMessage": "Thinking..." // ⚙️ Default: "Thinking..."
   },
   "llm": {
-    "provider": "openai",                             // ⚙️ Default: "openai"
-    "useNativeTools": false,                          // ⚙️ Default: false
-    "useAgent": false,                                // ⚙️ Default: false
-    "customPrompt": "You are a helpful assistant.",   // 🔧 Optional
-    "customPromptFile": "custom-prompt.txt",          // 🔧 Optional
-    "replaceToolPrompt": false,                       // ⚙️ Default: false
-    "maxAgentIterations": 20,                         // ⚙️ Default: 20 (maximum reasoning steps for agent mode)
+    "provider": "openai", // ⚙️ Default: "openai"
+    "useNativeTools": false, // ⚙️ Default: false
+    "useAgent": false, // ⚙️ Default: false
+    "customPrompt": "You are a helpful assistant.", // 🔧 Optional
+    "customPromptFile": "custom-prompt.txt", // 🔧 Optional
+    "replaceToolPrompt": false, // ⚙️ Default: false
+    "maxAgentIterations": 20, // ⚙️ Default: 20 (maximum reasoning steps for agent mode)
     "providers": {
       "openai": {
-        "model": "gpt-4o",                            // ⚙️ Default: "gpt-4o"
-        "apiKey": "${OPENAI_API_KEY}",                // ⭐ Required if using OpenAI
-        "temperature": 0.7,                           // ⚙️ Default: 0.7
-        "maxTokens": 2000                             // 🔧 Optional
+        "model": "gpt-4o", // ⚙️ Default: "gpt-4o"
+        "apiKey": "${OPENAI_API_KEY}", // ⭐ Required if using OpenAI
+        "temperature": 0.7, // ⚙️ Default: 0.7
+        "maxTokens": 2000 // 🔧 Optional
       },
       "anthropic": {
-        "model": "claude-3-5-sonnet-20241022",        // ⚙️ Default: "claude-3-5-sonnet-20241022"
-        "apiKey": "${ANTHROPIC_API_KEY}",             // ⭐ Required if using Anthropic
-        "temperature": 0.7                            // ⚙️ Default: 0.7
+        "model": "claude-3-5-sonnet-20241022", // ⚙️ Default: "claude-3-5-sonnet-20241022"
+        "apiKey": "${ANTHROPIC_API_KEY}", // ⭐ Required if using Anthropic
+        "temperature": 0.7 // ⚙️ Default: 0.7
       },
       "ollama": {
-        "model": "llama3",                            // ⚙️ Default: "llama3"
-        "baseUrl": "http://localhost:11434",          // ⚙️ Default: "http://localhost:11434"
-        "temperature": 0.7                            // ⚙️ Default: 0.7
+        "model": "llama3", // ⚙️ Default: "llama3"
+        "baseUrl": "http://localhost:11434", // ⚙️ Default: "http://localhost:11434"
+        "temperature": 0.7 // ⚙️ Default: 0.7
       }
     }
   },
   "mcpServers": {
     "server-name": {
-      "command": "npx",                               // 🔧 Optional (required if not using url)
+      "command": "npx", // 🔧 Optional (required if not using url)
       "args": ["-y", "@modelcontextprotocol/server"], // 🔧 Optional
-      "url": "http://localhost:3000/sse",             // 🔧 Optional (required if not using command)
-      "transport": "stdio",                           // ⚙️ Smart default: "stdio" for command, "sse" for url
-      "env": {                                        // 🔧 Optional
+      "url": "http://localhost:3000/sse", // 🔧 Optional (required if not using command)
+      "transport": "stdio", // ⚙️ Smart default: "stdio" for command, "sse" for url
+      "env": {
+        // 🔧 Optional
         "DEBUG": "true"
       },
-      "disabled": false,                              // ⚙️ Default: false
-      "initializeTimeoutSeconds": 30,                 // ⚙️ Default: 30
+      "disabled": false, // ⚙️ Default: false
+      "initializeTimeoutSeconds": 30, // ⚙️ Default: 30
       "tools": {
-        "allowList": ["tool1", "tool2"],              // 🔧 Optional
-        "blockList": ["dangerous_tool"]               // 🔧 Optional
+        "allowList": ["tool1", "tool2"], // 🔧 Optional
+        "blockList": ["dangerous_tool"] // 🔧 Optional
       }
     }
   },
   "rag": {
-    "enabled": false,                                 // ⚙️ Default: false
-    "provider": "simple",                             // ⚙️ Default: "simple"
-    "chunkSize": 1000,                                // ⚙️ Default: 1000
+    "enabled": false, // ⚙️ Default: false
+    "provider": "simple", // ⚙️ Default: "simple"
+    "chunkSize": 1000, // ⚙️ Default: 1000
     "providers": {
       "simple": {
-        "databasePath": "./rag.db"                    // ⚙️ Default: "./rag.db"
+        "databasePath": "./rag.db" // ⚙️ Default: "./rag.db"
       },
       "openai": {
-        "indexName": "slack-mcp-rag",                 // ⚙️ Default: "slack-mcp-rag"
-        "vectorStoreId": "vs_existing_store_id",      // 🔧 Optional: reuse existing vector store
-        "dimensions": 1536,                           // ⚙️ Default: 1536
-        "similarityMetric": "cosine",                 // 🔧 Optional: cosine, euclidean
-        "maxResults": 10                              // ⚙️ Default: 10 search results
+        "indexName": "slack-mcp-rag", // ⚙️ Default: "slack-mcp-rag"
+        "vectorStoreId": "vs_existing_store_id", // 🔧 Optional: reuse existing vector store
+        "dimensions": 1536, // ⚙️ Default: 1536
+        "similarityMetric": "cosine", // 🔧 Optional: cosine, euclidean
+        "maxResults": 10 // ⚙️ Default: 10 search results
       }
     }
   },
   "timeouts": {
-    "httpRequestTimeout": "30s",                      // ⚙️ Default: 30s
-    "mcpInitTimeout": "30s",                          // ⚙️ Default: 30s
-    "toolProcessingTimeout": "3m",                    // ⚙️ Default: 3m
-    "bridgeOperationTimeout": "3m",                   // ⚙️ Default: 3m
-    "pingTimeout": "5s",                              // ⚙️ Default: 5s
-    "responseProcessing": "1m"                        // ⚙️ Default: 1m
+    "httpRequestTimeout": "30s", // ⚙️ Default: 30s
+    "mcpInitTimeout": "30s", // ⚙️ Default: 30s
+    "toolProcessingTimeout": "3m", // ⚙️ Default: 3m
+    "bridgeOperationTimeout": "3m", // ⚙️ Default: 3m
+    "pingTimeout": "5s", // ⚙️ Default: 5s
+    "responseProcessing": "1m" // ⚙️ Default: 1m
   },
   "retry": {
-    "maxAttempts": 3,                                 // ⚙️ Default: 3 attempts
-    "baseBackoff": "500ms",                           // ⚙️ Default: 500ms
-    "maxBackoff": "5s",                               // ⚙️ Default: 5s
-    "mcpReconnectAttempts": 5,                        // ⚙️ Default: 5 attempts
-    "mcpReconnectBackoff": "1s"                       // ⚙️ Default: 1s
+    "maxAttempts": 3, // ⚙️ Default: 3 attempts
+    "baseBackoff": "500ms", // ⚙️ Default: 500ms
+    "maxBackoff": "5s", // ⚙️ Default: 5s
+    "mcpReconnectAttempts": 5, // ⚙️ Default: 5 attempts
+    "mcpReconnectBackoff": "1s" // ⚙️ Default: 1s
   },
   "monitoring": {
-    "enabled": true,                                  // ⚙️ Default: true
-    "metricsPort": 8080,                              // ⚙️ Default: 8080
-    "loggingLevel": "info"                            // ⚙️ Default: "info"
+    "enabled": true, // ⚙️ Default: true
+    "metricsPort": 8080, // ⚙️ Default: 8080
+    "loggingLevel": "info" // ⚙️ Default: "info"
   }
 }
 ```
 
 **Legend:**
+
 - ⭐ **Required**: Must be provided or application will fail to start
 - ⚙️ **Smart Default**: Automatically set if not specified
 - 🔧 **Optional**: Can be omitted, no default value
@@ -150,11 +153,12 @@ Below is the complete configuration schema showing all available options. Fields
 ## Configuration Examples by User Type
 
 ### 1. Quick Start User (5 minutes)
+
 **Need**: Get up and running in minutes with minimal setup
 
 ```json
 {
-  "$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+  "$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
   "version": "2.0",
   "slack": {
     "botToken": "${SLACK_BOT_TOKEN}",
@@ -170,11 +174,12 @@ Below is the complete configuration schema showing all available options. Fields
 ```
 
 ### 2. Production User (15 minutes)
+
 **Need**: Robust configuration with monitoring and security
 
 ```json
 {
-  "$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+  "$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
   "version": "2.0",
   "slack": {
     "botToken": "${SLACK_BOT_TOKEN}",
@@ -214,11 +219,12 @@ Below is the complete configuration schema showing all available options. Fields
 ```
 
 ### 3. Advanced User (30 minutes)
+
 **Need**: Maximum customization and control
 
 ```json
 {
-  "$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+  "$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
   "version": "2.0",
   "slack": {
     "botToken": "${SLACK_BOT_TOKEN}",
@@ -326,12 +332,14 @@ The application requires two types of tokens:
 Add these OAuth scopes to your Bot Token in the "OAuth & Permissions" section:
 
 **Essential Scopes:**
+
 - `app_mentions:read` - Allows the bot to receive mention events
 - `chat:write` - Allows the bot to post messages
 - `im:history` - Allows the bot to read direct messages
 - `im:read` - Allows the bot to receive DM events
 
 **Additional Scopes (for full functionality):**
+
 - `channels:history` - Allows reading public channel history
 - `groups:history` - Allows reading private channel history
 - `mpim:history` - Allows reading multi-person IM history
@@ -362,6 +370,7 @@ In the "App Home" section:
 ## Custom Prompt Configuration
 
 ### Option 1: Simple Inline Prompt (Most Common)
+
 ```json
 {
   "llm": {
@@ -372,6 +381,7 @@ In the "App Home" section:
 ```
 
 ### Option 2: File-Based Prompt (For Long Prompts)
+
 ```json
 {
   "llm": {
@@ -398,17 +408,17 @@ app:
 secrets:
   create: true
   data:
-    SLACK_BOT_TOKEN: ""     # Set via external secret manager
-    SLACK_APP_TOKEN: ""     # Set via external secret manager  
-    OPENAI_API_KEY: ""      # Set via external secret manager
-    ANTHROPIC_API_KEY: ""   # Set via external secret manager
+    SLACK_BOT_TOKEN: "" # Set via external secret manager
+    SLACK_APP_TOKEN: "" # Set via external secret manager
+    OPENAI_API_KEY: "" # Set via external secret manager
+    ANTHROPIC_API_KEY: "" # Set via external secret manager
 
 configMap:
   create: true
   data:
     config.json: |
       {
-        "$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+        "$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
         "version": "2.0",
         "slack": {
           "botToken": "${SLACK_BOT_TOKEN}",
@@ -431,6 +441,7 @@ configMap:
 ## Configuration Validation
 
 ### Runtime Validation
+
 The application validates configuration after loading environment variables and applying defaults:
 
 ```bash
@@ -444,6 +455,7 @@ The application validates configuration after loading environment variables and 
 ### Common Validation Errors
 
 **Missing Required Fields:**
+
 ```json
 {
   "error": "Configuration validation failed",
@@ -453,6 +465,7 @@ The application validates configuration after loading environment variables and 
 ```
 
 **Invalid Provider Configuration:**
+
 ```json
 {
   "error": "Configuration validation failed",
@@ -466,12 +479,15 @@ The application validates configuration after loading environment variables and 
 The application supports both automatic detection and manual migration from legacy formats:
 
 ### Automatic Detection (Recommended)
+
 Legacy configurations are automatically detected and converted at runtime:
+
 - **Legacy `mcp-servers.json`**: Automatically detected by presence of `mcpServers` field without `version`, `slack`, or `llm` fields
 - **Snake_case format**: Legacy snake_case field names are automatically converted during loading
 - **No action required**: Existing configurations continue to work without changes
 
 ### Manual Migration
+
 For permanent migration to the new format:
 
 1. **Automatic Migration**: Run `./slack-mcp-client --migrate-config --config legacy-config.json`
@@ -479,6 +495,7 @@ For permanent migration to the new format:
 3. **Validation**: Test with `--config-validate` before deployment
 
 ### Migration Benefits
+
 - **IDE Support**: JSON schema provides autocomplete and validation
 - **Modern Format**: camelCase follows current JSON API conventions
 - **Better Documentation**: Inline field descriptions via schema
@@ -488,16 +505,19 @@ For permanent migration to the new format:
 ### Common Issues
 
 **"Sending messages to this app has been turned off"**
+
 - Check App Home settings
 - Verify Event Subscriptions are configured
 - Ensure app is installed with required scopes
 
 **Configuration validation failures**
+
 - Check environment variables are set
 - Validate JSON syntax
 - Ensure required fields are present
 
 **MCP server connection issues**
+
 - Check server commands and arguments
 - Verify network connectivity for URL-based servers
 - Review server logs for initialization errors
@@ -531,6 +551,7 @@ For AI/ML-specific configuration options including enhanced LLM providers, advan
 ## Support
 
 For configuration issues:
+
 1. Check the troubleshooting section above
 2. Validate your configuration with `--config-validate`
 3. Review application logs for specific error messages

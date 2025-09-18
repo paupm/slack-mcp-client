@@ -4,13 +4,14 @@ package llm
 import (
 	"context"
 	"fmt"
-	"github.com/mark3labs/mcp-go/mcp"
 	"sync"
 
+	"github.com/mark3labs/mcp-go/mcp"
+
+	"github.com/paupm/slack-mcp-client/v2/internal/common/logging"
 	"github.com/tmc/langchaingo/callbacks"
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/tools"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/common/logging"
 )
 
 // Constants for provider types and names

@@ -13,16 +13,16 @@ import (
 	"github.com/slack-go/slack/slackevents"
 	"github.com/slack-go/slack/socketmode"
 
+	customErrors "github.com/paupm/slack-mcp-client/v2/internal/common/errors"
+	"github.com/paupm/slack-mcp-client/v2/internal/common/logging"
+	"github.com/paupm/slack-mcp-client/v2/internal/config"
+	"github.com/paupm/slack-mcp-client/v2/internal/handlers"
+	"github.com/paupm/slack-mcp-client/v2/internal/llm"
+	"github.com/paupm/slack-mcp-client/v2/internal/mcp"
+	"github.com/paupm/slack-mcp-client/v2/internal/observability"
+	"github.com/paupm/slack-mcp-client/v2/internal/rag"
 	"github.com/tmc/langchaingo/callbacks"
 	"github.com/tmc/langchaingo/llms"
-	customErrors "github.com/tuannvm/slack-mcp-client/v2/internal/common/errors"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/common/logging"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/config"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/handlers"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/llm"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/mcp"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/observability"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/rag"
 )
 
 // Client represents the Slack client application.

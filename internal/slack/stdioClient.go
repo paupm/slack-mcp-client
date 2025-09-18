@@ -3,13 +3,14 @@ package slackbot
 import (
 	"bufio"
 	"fmt"
-	"github.com/slack-go/slack"
-	"github.com/slack-go/slack/slackevents"
-	"github.com/slack-go/slack/socketmode"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/common/logging"
 	"io"
 	"os"
 	"os/user"
+
+	"github.com/paupm/slack-mcp-client/v2/internal/common/logging"
+	"github.com/slack-go/slack"
+	"github.com/slack-go/slack/slackevents"
+	"github.com/slack-go/slack/socketmode"
 )
 
 type StdioClient struct {

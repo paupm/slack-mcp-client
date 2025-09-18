@@ -4,11 +4,11 @@
 
 This client enables AI models (OpenAI, Anthropic, Ollama) to interact with real tools and systems through Slack conversations. Built on the industry-standard Model Context Protocol (MCP), it provides secure access to filesystems, databases, Kubernetes clusters, Git repositories, and custom tools.
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/tuannvm/slack-mcp-client/build.yml?branch=main&label=CI%2FCD&logo=github)](https://github.com/tuannvm/slack-mcp-client/actions/workflows/build.yml)
-[![Go Version](https://img.shields.io/github/go-mod/go-version/tuannvm/slack-mcp-client?logo=go)](https://github.com/tuannvm/slack-mcp-client/blob/main/go.mod)
-[![Trivy Scan](https://img.shields.io/github/actions/workflow/status/tuannvm/slack-mcp-client/build.yml?branch=main&label=Trivy%20Security%20Scan&logo=aquasec)](https://github.com/tuannvm/slack-mcp-client/actions/workflows/build.yml)
-[![Docker Image](https://img.shields.io/github/v/release/tuannvm/slack-mcp-client?sort=semver&label=GHCR&logo=docker)](https://github.com/tuannvm/slack-mcp-client/pkgs/container/slack-mcp-client)
-[![GitHub Release](https://img.shields.io/github/v/release/tuannvm/slack-mcp-client?sort=semver)](https://github.com/tuannvm/slack-mcp-client/releases/latest)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/tuannvm/slack-mcp-client/build.yml?branch=main&label=CI%2FCD&logo=github)](https://github.com/paupm/slack-mcp-client/actions/workflows/build.yml)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/tuannvm/slack-mcp-client?logo=go)](https://github.com/paupm/slack-mcp-client/blob/main/go.mod)
+[![Trivy Scan](https://img.shields.io/github/actions/workflow/status/tuannvm/slack-mcp-client/build.yml?branch=main&label=Trivy%20Security%20Scan&logo=aquasec)](https://github.com/paupm/slack-mcp-client/actions/workflows/build.yml)
+[![Docker Image](https://img.shields.io/github/v/release/tuannvm/slack-mcp-client?sort=semver&label=GHCR&logo=docker)](https://github.com/paupm/slack-mcp-client/pkgs/container/slack-mcp-client)
+[![GitHub Release](https://img.shields.io/github/v/release/tuannvm/slack-mcp-client?sort=semver)](https://github.com/paupm/slack-mcp-client/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > **Compatible with MCP Specification 2025-06-18** - Compliant with the latest Model Context Protocol standards
@@ -71,27 +71,27 @@ flowchart LR
         Tracing[🔍 OpenTelemetry Tracing<br/>Langfuse & OTLP]
         Logging[📝 Structured Logging<br/>Debug & Analytics]
     end
-    
+
     subgraph Core[Features]
         Slack --> Bridge[🌉 LLM-MCP Bridge<br/>Orchestration Layer]
-        
+
         subgraph LLM[🤖 AI Processing]
             Bridge --> LLMRegistry[LLM Provider Registry]
             LLMRegistry --> OpenAI[OpenAI<br/>GPT-4o]
             LLMRegistry --> Anthropic[Anthropic<br/>Claude]
             LLMRegistry --> Ollama[Ollama<br/>Local Models]
-            
+
             Bridge --> Agent{🎯 Agent Mode?}
             Agent -->|Yes| LangChain[🔄 LangChain Agent<br/>Multi-step Reasoning]
             Agent -->|No| Standard[⚡ Standard Mode<br/>Single Response]
         end
-        
+
         subgraph Knowledge[📚 Knowledge & Memory]
             Bridge --> RAG[🧠 RAG System]
             RAG --> SimpleRAG[📄 JSON Store<br/>Simple Documents]
             RAG --> VectorRAG[🔍 OpenAI Vector Store<br/>Semantic Search]
         end
-        
+
         subgraph Tools[🛠️ MCP Mode]
             Bridge --> MCPManager[MCP Client]
             MCPManager --> FileSystem[📁 Filesystem MCP Server<br/>Read/Write Files]
@@ -99,19 +99,19 @@ flowchart LR
             MCPManager --> Kubernetes[☸️ Kubernetes MCP Server<br/>Cluster Management]
         end
     end
-    
-    
+
+
     Config -.-> Core
     Core -.-> Monitoring
     Core -.-> Tracing
     Core -.-> Logging
-    
+
     style Core fill:#F8F9FA,stroke:#6C757D,stroke-width:3px
     style LLM fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
     style Knowledge fill:#E8F5E8,stroke:#388E3C,stroke-width:2px
     style Tools fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
     style Infrastructure fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-    
+
     style User fill:#4CAF50,stroke:#2E7D32,stroke-width:2px,color:#fff
     style Slack fill:#4A90E2,stroke:#1565C0,stroke-width:2px,color:#fff
     style Bridge fill:#FF9800,stroke:#E65100,stroke-width:2px,color:#fff
@@ -195,14 +195,14 @@ flowchart LR
 
 ### From Binary Release
 
-Download the latest binary from the [GitHub releases page](https://github.com/tuannvm/slack-mcp-client/releases/latest) or install using Go:
+Download the latest binary from the [GitHub releases page](https://github.com/paupm/slack-mcp-client/releases/latest) or install using Go:
 
 ```bash
 # Install latest version using Go
-go install github.com/tuannvm/slack-mcp-client/v2@latest
+go install github.com/paupm/slack-mcp-client/v2@latest
 
 # Or build from source
-git clone https://github.com/tuannvm/slack-mcp-client.git
+git clone https://github.com/paupm/slack-mcp-client.git
 cd slack-mcp-client
 make build
 # Binary will be in ./bin/slack-mcp-client
@@ -240,7 +240,7 @@ source .env
 # Create config.json with the new unified configuration format
 cat > config.json << EOL
 {
-  "\$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+  "\$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
   "version": "2.0",
   "slack": {
     "botToken": "\${SLACK_BOT_TOKEN}",
@@ -312,6 +312,7 @@ slack-mcp-client --config-validate --config config.json
 ```
 
 The new configuration format provides:
+
 - **Single File**: All settings in one `config.json` file
 - **JSON Schema**: IDE support with autocomplete and validation
 - **Environment Variables**: Use `${VAR_NAME}` syntax for secrets
@@ -330,7 +331,7 @@ The client includes an improved RAG (Retrieval-Augmented Generation) system that
 
 ```json
 {
-  "$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+  "$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
   "version": "2.0",
   "slack": {
     "botToken": "${SLACK_BOT_TOKEN}",
@@ -385,7 +386,7 @@ Once configured, the LLM can automatically search your knowledge base:
 **User**: "What's our vacation policy?"
 
 **AI**: "Let me search our knowledge base for vacation policy information..."
-*(Automatically searches RAG database)*
+_(Automatically searches RAG database)_
 
 **AI**: "Based on our company policy documents, you get 15 days of vacation..."
 
@@ -410,7 +411,7 @@ You are SalesGPT, a helpful sales assistant specializing in B2B software sales.
 
 Your expertise includes:
 - Lead qualification and discovery
-- Solution positioning and value propositions  
+- Solution positioning and value propositions
 - Objection handling and negotiation
 - CRM best practices and sales processes
 
@@ -433,7 +434,7 @@ Define prompts in your configuration:
 
 ```json
 {
-  "$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+  "$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
   "version": "2.0",
   "slack": {
     "botToken": "${SLACK_BOT_TOKEN}",
@@ -485,7 +486,7 @@ Enable Agent Mode in your configuration file:
 
 ```json
 {
-  "$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+  "$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
   "version": "2.0",
   "slack": {
     "botToken": "${SLACK_BOT_TOKEN}",
@@ -535,6 +536,7 @@ Enable Agent Mode in your configuration file:
 #### Agent vs Standard Mode
 
 **Standard Mode**:
+
 - Single-prompt interactions
 - Tools described in system prompt as JSON schemas
 - Direct tool call parsing and execution
@@ -542,6 +544,7 @@ Enable Agent Mode in your configuration file:
 - Simpler conversation flow
 
 **Agent Mode**:
+
 - Multi-turn conversational interactions
 - Context-aware tool usage decisions
 - Better user context integration
@@ -551,6 +554,7 @@ Enable Agent Mode in your configuration file:
 #### Agent Mode Examples
 
 **Interactive Development Consultation**:
+
 ```
 User: "I need help optimizing my React app performance"
 
@@ -567,6 +571,7 @@ Agent: "Let me check your current bundle setup and suggest optimizations..."
 ```
 
 **Contextual Problem Solving**:
+
 ```
 User: "Can you help me with my deployment pipeline?"
 
@@ -614,6 +619,7 @@ helm install my-slack-bot oci://ghcr.io/tuannvm/charts/slack-mcp-client --versio
 You can check available versions by visiting the GitHub Container Registry in your browser.
 
 #### Prerequisites
+
 - Kubernetes 1.16+
 - Helm 3.0+
 - Slack Bot and App tokens
@@ -645,6 +651,7 @@ helm install my-slack-bot ./helm-chart/slack-mcp-client -f values.yaml
 #### Configuration Options
 
 The Helm chart supports various configuration options including:
+
 - Setting resource limits and requests
 - Configuring MCP servers via ConfigMap
 - Managing sensitive data via Kubernetes secrets
@@ -660,7 +667,7 @@ The Helm chart uses the Docker image from GitHub Container Registry (GHCR) by de
 # In your values.yaml
 image:
   repository: ghcr.io/tuannvm/slack-mcp-client
-  tag: "latest"  # Or use a specific version like "1.0.0"
+  tag: "latest" # Or use a specific version like "1.0.0"
   pullPolicy: IfNotPresent
 ```
 
@@ -727,7 +734,7 @@ The included `docker-compose.yml` provides:
 - Examples of connecting to additional MCP servers (commented out)
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   slack-mcp-client:
@@ -749,7 +756,7 @@ You can easily extend this setup to include additional MCP servers in the same n
 1. Create a new Slack app at https://api.slack.com/apps
 2. Enable Socket Mode and generate an app-level token
 3. Check `Allow users to send Slash commands and messages from the chat tab` in App Home page, to enable direct message to Slack app.
-![image](https://github.com/wyangsun/wyangsun.github.io/blob/master/slackapp.png)
+   ![image](https://github.com/wyangsun/wyangsun.github.io/blob/master/slackapp.png)
 4. Add the following Bot Token Scopes:
    - `app_mentions:read`
    - `chat:write`
@@ -828,28 +835,29 @@ The client uses two main configuration approaches:
 
 Configure LLM providers and Slack integration using environment variables:
 
-| Variable              | Description                                  | Default    |
-| --------------------- | -------------------------------------------- | ---------- |
-| SLACK_BOT_TOKEN       | Bot token for Slack API                      | (required) |
-| SLACK_APP_TOKEN       | App-level token for Socket Mode              | (required) |
-| OPENAI_API_KEY        | API key for OpenAI authentication            | (required) |
-| OPENAI_MODEL          | OpenAI model to use                          | gpt-4o     |
-| ANTHROPIC_API_KEY     | API key for Anthropic authentication         | (required for Anthropic) |
-| ANTHROPIC_MODEL       | Anthropic model to use                       | claude-3-5-sonnet-20241022 |
-| LOG_LEVEL             | Logging level (debug, info, warn, error)     | info       |
-| LLM_PROVIDER          | LLM provider to use (openai, anthropic, ollama) | openai     |
-| LANGCHAIN_OLLAMA_URL  | URL for Ollama when using LangChain          | http://localhost:11434 |
-| LANGCHAIN_OLLAMA_MODEL| Model name for Ollama when using LangChain   | llama3     |
-| LANGFUSE_ENDPOINT     | Langfuse API endpoint for observability      | (optional) |
-| LANGFUSE_PUBLIC_KEY   | Langfuse public key for authentication       | (optional) |
-| LANGFUSE_SECRET_KEY   | Langfuse secret key for authentication       | (optional) |
-| OTEL_EXPORTER_OTLP_ENDPOINT | OTLP endpoint for simple tracing       | (optional) |
+| Variable                    | Description                                     | Default                    |
+| --------------------------- | ----------------------------------------------- | -------------------------- |
+| SLACK_BOT_TOKEN             | Bot token for Slack API                         | (required)                 |
+| SLACK_APP_TOKEN             | App-level token for Socket Mode                 | (required)                 |
+| OPENAI_API_KEY              | API key for OpenAI authentication               | (required)                 |
+| OPENAI_MODEL                | OpenAI model to use                             | gpt-4o                     |
+| ANTHROPIC_API_KEY           | API key for Anthropic authentication            | (required for Anthropic)   |
+| ANTHROPIC_MODEL             | Anthropic model to use                          | claude-3-5-sonnet-20241022 |
+| LOG_LEVEL                   | Logging level (debug, info, warn, error)        | info                       |
+| LLM_PROVIDER                | LLM provider to use (openai, anthropic, ollama) | openai                     |
+| LANGCHAIN_OLLAMA_URL        | URL for Ollama when using LangChain             | http://localhost:11434     |
+| LANGCHAIN_OLLAMA_MODEL      | Model name for Ollama when using LangChain      | llama3                     |
+| LANGFUSE_ENDPOINT           | Langfuse API endpoint for observability         | (optional)                 |
+| LANGFUSE_PUBLIC_KEY         | Langfuse public key for authentication          | (optional)                 |
+| LANGFUSE_SECRET_KEY         | Langfuse secret key for authentication          | (optional)                 |
+| OTEL_EXPORTER_OTLP_ENDPOINT | OTLP endpoint for simple tracing                | (optional)                 |
 
 ### Monitoring & Observability Configuration
 
 The client includes comprehensive monitoring capabilities with both metrics and distributed tracing:
 
 #### Prometheus Metrics
+
 - **Metrics Endpoint**: Accessible at `/metrics` on the configured port
 - **Default Port**: 8080 (configurable via `--metrics-port` flag)
 - **Metrics Available**:
@@ -857,6 +865,7 @@ The client includes comprehensive monitoring capabilities with both metrics and 
   - `slackmcp_llm_tokens`: Histogram for LLM token usage by type and model
 
 #### OpenTelemetry Tracing
+
 - **Supported Providers**:
   - `simple-otel`: Basic OpenTelemetry tracing to OTLP endpoints (requires endpoint configuration)
   - `langfuse-otel`: Advanced LLM observability with Langfuse integration (requires endpoint and auth)
@@ -865,6 +874,7 @@ The client includes comprehensive monitoring capabilities with both metrics and 
 - **Comprehensive Tracking**: Spans for LLM operations, tool calls, and user interactions with detailed attributes
 
 Example configuration and usage:
+
 ```bash
 # Access metrics endpoint
 curl http://localhost:8080/metrics
@@ -874,7 +884,7 @@ slack-mcp-client --metrics-port 9090
 
 # Enable Langfuse tracing (example)
 export LANGFUSE_ENDPOINT="https://cloud.langfuse.com"
-export LANGFUSE_PUBLIC_KEY="pk-your-public-key"  
+export LANGFUSE_PUBLIC_KEY="pk-your-public-key"
 export LANGFUSE_SECRET_KEY="sk-your-secret-key"
 
 # Enable simple OTLP tracing (example)
@@ -887,7 +897,7 @@ All configuration is now managed through a single `config.json` file with compre
 
 ```json
 {
-  "$schema": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+  "$schema": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
   "version": "2.0",
   "slack": {
     "botToken": "${SLACK_BOT_TOKEN}",
@@ -993,6 +1003,7 @@ To enable reload functionality, add reload settings to your `config.json`:
 ```
 
 **Configuration Options**:
+
 - `enabled`: Must be set to `true` to activate reload functionality (default: `false`)
 - `interval`: Time between automatic reloads (default: `"30m"`, minimum: `"10s"`)
 
@@ -1001,6 +1012,7 @@ To enable reload functionality, add reload settings to your `config.json`:
 **Automatic Reload**: When enabled, the application automatically reloads at the configured interval to reconnect to MCP servers and refresh tool discovery.
 
 **Manual Reload**: Even with automatic reload disabled, you can trigger manual reloads using signals:
+
 ```bash
 # In Kubernetes
 kubectl exec -it <pod-name> -- kill -USR1 1
@@ -1018,6 +1030,7 @@ kill -USR1 <process-id>
 - **Safe**: Minimum interval validation prevents excessive reloading
 
 When enabled, the reload feature automatically:
+
 - Reconnects to all configured MCP servers
 - Rediscovers available tools
 - Refreshes configuration settings
@@ -1055,19 +1068,23 @@ The client supports three transport modes:
 Comprehensive documentation is available in the `docs/` directory:
 
 ### Configuration & Setup
+
 - **[Slack Configuration Guide](docs/configuration.md)** - Complete guide for setting up your Slack app, including required permissions, tokens, and troubleshooting common issues
 
 ### Development & Implementation
+
 - **[Implementation Notes](docs/implementation.md)** - Detailed technical documentation covering the current architecture, core components, and implementation details
 - **[Requirements Specification](docs/requirements.md)** - Comprehensive requirements documentation including implemented features, quality requirements, and future enhancements
 
 ### User Guides
+
 - **[Slack Formatting Guide](docs/format.md)** - Complete guide to message formatting including Markdown-to-Slack conversion, Block Kit layouts, and automatic format detection
 - **[RAG Implementation Guide](docs/rag-json.md)** - Detailed guide for the improved RAG system with LangChain Go compatibility and performance optimizations
 - **[RAG SQLite Implementation](docs/rag-sqlite.md)** - Implementation plan for native Go SQLite integration with ChatGPT-like upload experience
 - **[Testing Guide](docs/test.md)** - Comprehensive testing documentation covering unit tests, integration tests, manual testing procedures, and debugging
 
 ### Quick Links
+
 - **Setup**: Start with the [Slack Configuration Guide](docs/configuration.md) for initial setup
 - **Agent Mode**: See the Agent Mode section above for autonomous AI agents with tool chaining
 - **RAG**: Check the [RAG Implementation Guide](docs/rag-json.md) for document knowledge base integration
@@ -1094,22 +1111,26 @@ This project uses GitHub Actions for continuous integration and GoReleaser for a
 Our CI pipeline performs the following checks on all PRs and commits to the main branch:
 
 #### Code Quality
+
 - **Linting**: Using golangci-lint to check for common code issues and style violations
 - **Go Module Verification**: Ensuring go.mod and go.sum are properly maintained
 - **Formatting**: Verifying code is properly formatted with gofmt
 
 #### Security
+
 - **Vulnerability Scanning**: Using govulncheck to check for known vulnerabilities in dependencies
 - **Dependency Scanning**: Using Trivy to scan for vulnerabilities in dependencies
 - **SBOM Generation**: Creating a Software Bill of Materials for dependency tracking
 
 #### Testing
+
 - **Unit Tests**: Running tests with race detection and code coverage reporting
 - **Build Verification**: Ensuring the codebase builds successfully
 
 ### Release Process
 
 When changes are merged to the main branch:
+
 1. CI checks are run to validate code quality and security
 2. If successful, a new release is automatically created with:
    - Semantic versioning based on commit messages

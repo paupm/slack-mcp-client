@@ -16,16 +16,16 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/paupm/slack-mcp-client/v2/internal/app"
+	customErrors "github.com/paupm/slack-mcp-client/v2/internal/common/errors"
+	"github.com/paupm/slack-mcp-client/v2/internal/common/logging"
+	"github.com/paupm/slack-mcp-client/v2/internal/config"
+	"github.com/paupm/slack-mcp-client/v2/internal/mcp"
+	"github.com/paupm/slack-mcp-client/v2/internal/monitoring"
+	"github.com/paupm/slack-mcp-client/v2/internal/rag"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/app"
-	customErrors "github.com/tuannvm/slack-mcp-client/v2/internal/common/errors"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/common/logging"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/config"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/mcp"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/monitoring"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/rag"
 
-	slackbot "github.com/tuannvm/slack-mcp-client/v2/internal/slack"
+	slackbot "github.com/paupm/slack-mcp-client/v2/internal/slack"
 )
 
 // ToolInfo definition is moved to internal/common/types.go

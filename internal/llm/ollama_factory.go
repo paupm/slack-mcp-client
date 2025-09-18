@@ -1,10 +1,10 @@
 package llm
 
 import (
+	customErrors "github.com/paupm/slack-mcp-client/v2/internal/common/errors"
+	"github.com/paupm/slack-mcp-client/v2/internal/common/logging"
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/llms/ollama"
-	customErrors "github.com/tuannvm/slack-mcp-client/v2/internal/common/errors"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/common/logging"
 )
 
 // OllamaModelFactory creates Ollama LangChain model instances

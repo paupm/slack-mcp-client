@@ -1,6 +1,6 @@
 # Slack MCP Client Helm Chart
 
-This Helm chart deploys the [slack-mcp-client](https://github.com/tuannvm/slack-mcp-client) to Kubernetes.
+This Helm chart deploys the [slack-mcp-client](https://github.com/paupm/slack-mcp-client) to Kubernetes.
 
 ## Prerequisites
 
@@ -61,10 +61,10 @@ For production deployments, it's recommended to manage sensitive data using a so
 ```yaml
 secret:
   create: false
-  name: "slack-mcp-client-secrets"  # Name of your externally managed secret
+  name: "slack-mcp-client-secrets" # Name of your externally managed secret
 
 # Then ensure your secret contains:
 # - slack-bot-token
 # - slack-app-token
 # - openai-api-key
-``` 
+```

@@ -1,10 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://github.com/tuannvm/slack-mcp-client/schema/config-schema.json",
+  "$id": "https://github.com/paupm/slack-mcp-client/schema/config-schema.json",
   "title": "Slack MCP Client Configuration",
   "description": "Configuration schema for the Slack MCP Client application",
   "type": "object",
-  "required": ["version", "slack"],
+  "required": [
+    "version",
+    "slack"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -13,7 +16,10 @@
     },
     "slack": {
       "type": "object",
-      "required": ["botToken", "appToken"],
+      "required": [
+        "botToken",
+        "appToken"
+      ],
       "properties": {
         "botToken": {
           "type": "string",
@@ -21,7 +27,7 @@
           "pattern": "^(xoxb-|\\$\\{[A-Z_]+\\}).*"
         },
         "appToken": {
-          "type": "string", 
+          "type": "string",
           "description": "Slack app token (xapp-*) or environment variable reference (${SLACK_APP_TOKEN})",
           "pattern": "^(xapp-|\\$\\{[A-Z_]+\\}).*"
         }
@@ -33,7 +39,11 @@
       "properties": {
         "provider": {
           "type": "string",
-          "enum": ["openai", "anthropic", "ollama"],
+          "enum": [
+            "openai",
+            "anthropic",
+            "ollama"
+          ],
           "default": "openai",
           "description": "Primary LLM provider to use"
         },
@@ -98,7 +108,10 @@
         },
         "provider": {
           "type": "string",
-          "enum": ["simple", "openai"],
+          "enum": [
+            "simple",
+            "openai"
+          ],
           "default": "simple",
           "description": "RAG provider implementation to use"
         },
@@ -141,7 +154,12 @@
         },
         "loggingLevel": {
           "type": "string",
-          "enum": ["debug", "info", "warn", "error"],
+          "enum": [
+            "debug",
+            "info",
+            "warn",
+            "error"
+          ],
           "default": "info",
           "description": "Logging level for the application"
         }
@@ -203,12 +221,18 @@
         },
         "transport": {
           "type": "string",
-          "enum": ["stdio", "sse", "http"],
+          "enum": [
+            "stdio",
+            "sse",
+            "http"
+          ],
           "description": "Transport protocol (auto-detected if not specified)"
         },
         "httpHeaders": {
           "type": "object",
-          "additionalProperties": { "type": "string" },
+          "additionalProperties": {
+            "type": "string"
+          },
           "description": "Optional HTTP headers with env-var substitution"
         },
         "env": {
@@ -238,8 +262,16 @@
         }
       },
       "oneOf": [
-        {"required": ["command"]},
-        {"required": ["url"]}
+        {
+          "required": [
+            "command"
+          ]
+        },
+        {
+          "required": [
+            "url"
+          ]
+        }
       ],
       "additionalProperties": false
     },
@@ -254,7 +286,7 @@
           "description": "Only allow these tools (if specified, blocks all others)"
         },
         "blockList": {
-          "type": "array", 
+          "type": "array",
           "items": {
             "type": "string"
           },
@@ -292,4 +324,4 @@
       "additionalProperties": false
     }
   }
-} 
+}

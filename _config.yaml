@@ -3,13 +3,13 @@ title: Slack MCP Client
 description: A Slack bot client that bridges Slack and MCP servers, enabling AI models to interact with Slack and execute tools through standardized Model Context Protocol connections.
 show_downloads: true
 github:
-  repository_url: https://github.com/tuannvm/slack-mcp-client
-  releases_url: https://github.com/tuannvm/slack-mcp-client/releases
+  repository_url: https://github.com/paupm/slack-mcp-client
+  releases_url: https://github.com/paupm/slack-mcp-client/releases
   is_project_page: true
   # Custom links for platform-specific binaries
-  another_url: https://github.com/tuannvm/slack-mcp-client/releases/latest/download/slack-mcp-client-darwin-amd64
-  zip_url: https://github.com/tuannvm/slack-mcp-client/releases/latest
-  tar_url: https://github.com/tuannvm/slack-mcp-client/releases
+  another_url: https://github.com/paupm/slack-mcp-client/releases/latest/download/slack-mcp-client-darwin-amd64
+  zip_url: https://github.com/paupm/slack-mcp-client/releases/latest
+  tar_url: https://github.com/paupm/slack-mcp-client/releases
 
 # Make README.md the index page
 include:

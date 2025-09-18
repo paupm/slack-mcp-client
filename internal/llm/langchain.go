@@ -12,8 +12,8 @@ import (
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/tools"
 
-	"github.com/tuannvm/slack-mcp-client/v2/internal/common/errors"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/common/logging"
+	"github.com/paupm/slack-mcp-client/v2/internal/common/errors"
+	"github.com/paupm/slack-mcp-client/v2/internal/common/logging"
 )
 
 const (

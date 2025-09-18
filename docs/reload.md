@@ -1,6 +1,6 @@
 # Signal-Based Reload Implementation (Implemented)
 
-This document outlines the implemented zero-downtime approach to address [GitHub Issue #56](https://github.com/tuannvm/slack-mcp-client/issues/56) using signal-based application reload.
+This document outlines the implemented zero-downtime approach to address [GitHub Issue #56](https://github.com/paupm/slack-mcp-client/issues/56) using signal-based application reload.
 
 ## Problem Statement
 
@@ -21,6 +21,7 @@ Implemented **signal-based reload** using SIGUSR1 and periodic timers that trigg
 ## Implementation
 
 ### Configuration Structure
+
 ```go
 type ReloadConfig struct {
     Enabled  bool   `json:"enabled,omitempty"`  // Enable periodic reload (default: false)
@@ -31,12 +32,14 @@ type ReloadConfig struct {
 ### Core Components
 
 1. **Application Lifecycle** (`internal/app/lifecycle.go`)
+
    - `RunWithReload()` - Main wrapper function
    - Signal handling for SIGUSR1 (reload) and SIGINT/SIGTERM (shutdown)
    - Periodic timer for automatic reloads
    - Graceful shutdown with 10-second timeout
 
 2. **Configuration Integration** (`internal/config/config.go`)
+
    - Added ReloadConfig to main Config struct
    - Default values: disabled, 30-minute interval
    - Minimum interval validation (10 seconds)
@@ -57,6 +60,7 @@ type ReloadConfig struct {
 ## Configuration Examples
 
 ### Enable with custom interval
+
 ```json
 {
   "reload": {
@@ -67,6 +71,7 @@ type ReloadConfig struct {
 ```
 
 ### Disabled (Default)
+
 ```json
 {
   "reload": {
@@ -78,6 +83,7 @@ type ReloadConfig struct {
 ## Usage
 
 ### On-Demand Reload
+
 ```bash
 # In Kubernetes
 kubectl exec -it <pod-name> -- kill -USR1 1
@@ -87,6 +93,7 @@ kill -USR1 <process-id>
 ```
 
 ### Periodic Reload
+
 - Automatically reloads based on configured interval
 - Minimum interval: 10 seconds
 - Default interval: 30 minutes
@@ -94,6 +101,7 @@ kill -USR1 <process-id>
 ## Testing
 
 The implementation includes comprehensive unit tests:
+
 - Signal handling validation
 - Configuration parsing and validation
 - Timeout constant verification
@@ -110,6 +118,7 @@ The implementation includes comprehensive unit tests:
 ## Production Deployment
 
 Works seamlessly with Kubernetes:
+
 - Pod stays running during reloads
 - No service interruption
 - Compatible with health checks
@@ -118,14 +127,16 @@ Works seamlessly with Kubernetes:
 ## Monitoring
 
 Available Prometheus metrics:
+
 - `mcp_reloads_total` - Counter by trigger type
 - `mcp_reload_duration_seconds` - Reload timing histogram
 
 ## Implementation Status
 
 ✅ **Complete** - Fully implemented and tested
+
 - Configuration structure and validation
-- Signal-based and periodic reload triggers  
+- Signal-based and periodic reload triggers
 - Graceful shutdown handling
 - Prometheus metrics integration
 - Comprehensive unit test coverage

@@ -4,8 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
+	"github.com/paupm/slack-mcp-client/v2/internal/monitoring"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/tuannvm/slack-mcp-client/v2/internal/monitoring"
 )
 
 type ToolInfo struct {
